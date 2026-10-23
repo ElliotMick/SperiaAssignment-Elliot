@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GiphyIntegration.Api/GiphyIntegration.Api.csproj" />
+    <Project Path="src/GiphyIntegration.Core/GiphyIntegration.Core.csproj" />
+    <Project Path="src/GiphyIntegration.Infrastructure/GiphyIntegration.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/GiphyIntegration.Tests/GiphyIntegration.Tests.csproj" />
+  </Folder>
+</Solution>

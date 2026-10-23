@@ -1,0 +1,24 @@
+<nav class="chips" aria-label="Trending and recent searches">
+  <button
+    type="button"
+    class="chip chip--trending"
+    [attr.aria-pressed]="activeView().kind === 'trending'"
+    (click)="trendingSelected.emit()"
+  >
+    Trending
+  </button>
+
+  @for (search of searches(); track search.term) {
+    <button
+      type="button"
+      class="chip"
+      [attr.aria-pressed]="isActive(search.term)"
+      [title]="'Last searched ' + (search.lastSearchedAtUtc | date: 'short')"
+      (click)="searchSelected.emit(search.term)"
+    >
+      {{ search.term }}
+    </button>
+  }
+</nav>
+
+<p class="hint">{{ searches().length }} / {{ maxEntries() }} recent searches cached</p>

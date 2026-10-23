@@ -1,0 +1,14 @@
+<form class="search" role="search" (submit)="submit($event)">
+  <label class="visually-hidden" for="search-input">Search GIFs</label>
+  <input
+    #box
+    id="search-input"
+    type="search"
+    placeholder="Search GIFs…"
+    autocomplete="off"
+    [maxLength]="maxLength"
+    [value]="value()"
+    (input)="value.set(box.value)"
+  />
+  <button type="submit" [disabled]="!isValid()">Search</button>
+</form>

@@ -1,0 +1,22 @@
+@if (loading() && gifs().length === 0) {
+  <ul class="grid" aria-hidden="true">
+    @for (placeholder of placeholders; track placeholder) {
+      <li class="tile tile--placeholder"></li>
+    }
+  </ul>
+} @else {
+  <ul class="grid" [class.grid--refreshing]="loading()">
+    @for (gif of gifs(); track gif.id) {
+      <li class="tile">
+        <a
+          [href]="gif.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          [title]="gif.title || 'Open the GIF'"
+        >
+          <img [src]="gif.previewUrl" [alt]="gif.title || 'GIF'" loading="lazy" />
+        </a>
+      </li>
+    }
+  </ul>
+}

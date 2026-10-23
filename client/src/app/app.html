@@ -1,0 +1,49 @@
+<header class="topbar">
+  <div class="container topbar__inner">
+    <button type="button" class="brand" (click)="store.showTrending()">
+      GIF<span>Finder</span>
+    </button>
+    <app-search-bar [term]="activeTerm()" (searched)="store.search($event)" />
+  </div>
+</header>
+
+<main class="container content">
+  <app-recent-searches
+    [searches]="store.cachedSearches()"
+    [maxEntries]="store.maxEntries()"
+    [activeView]="store.view()"
+    (trendingSelected)="store.showTrending()"
+    (searchSelected)="store.search($event)"
+  />
+
+  <section class="results" aria-labelledby="results-heading">
+    <div class="results__header">
+      <h1 id="results-heading">{{ heading() }}</h1>
+      <p class="status" aria-live="polite">
+        @if (store.source(); as source) {
+          <span class="badge" [attr.data-source]="source">{{ sourceLabels[source] }}</span>
+        }
+        @if (store.loading()) {
+          <span>{{ store.source() ? 'Refreshing…' : 'Loading…' }}</span>
+        } @else if (store.gifs().length) {
+          <span>{{ store.gifs().length }} GIFs</span>
+        }
+      </p>
+    </div>
+
+    @if (store.error(); as error) {
+      <div class="alert" role="alert">
+        <span>{{ error }}</span>
+        <button type="button" (click)="store.retry()">Retry</button>
+      </div>
+    }
+
+    @if (isEmpty()) {
+      <p class="empty">No GIFs found{{ activeTerm() ? ' for “' + activeTerm() + '”' : '' }}.</p>
+    } @else {
+      <app-gif-grid [gifs]="store.gifs()" [loading]="store.loading()" />
+    }
+  </section>
+</main>
+
+<footer class="container footer">Powered by GIPHY</footer>
